@@ -1,0 +1,20 @@
+name: 'setup-e1c-executor'
+description: 'Setup 1C:Executor action'
+author: 'otymko'
+
+branding:
+  icon: 'chevrons-down'
+  color: 'blue'
+
+inputs:
+  version:
+    description: 'Version 1C:Executor'
+    required: true
+    default: 'stable'
+  token:
+    description: 'Token for downloads'
+    required: true
+
+runs:
+  using: node20
+  main: dist/index.js
