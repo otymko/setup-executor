@@ -16,7 +16,7 @@ jobs:
 
     - shell: bash
       env:
-        SUPER_SECRET: ${{ secrets.DEVELOPER_1C_TOKEN }}
+        DEVELOPER_1C_TOKEN: ${{ secrets.DEVELOPER_1C_TOKEN }}
       run: |
         echo "$DEVELOPER_1C_TOKEN"
 
