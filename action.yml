@@ -1,5 +1,5 @@
-name: 'setup-e1c-executor'
-description: 'Setup 1C:Executor action'
+name: 'setup-executor'
+description: 'Setup 1C:Executor'
 author: 'otymko'
 
 branding:
@@ -8,11 +8,11 @@ branding:
 
 inputs:
   version:
-    description: 'Version 1C:Executor'
+    description: 'Version 1C:Executor. Permissible values: `stable`, `preview`, any 1C:Executor version, example, `4.0.6.7`'
     required: true
     default: 'stable'
   token:
-    description: 'Token for downloads'
+    description: 'Token for downloads 1C:Executor with `developer.1c.ru`'
     required: true
 
 runs:

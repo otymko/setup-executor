@@ -1,12 +1,12 @@
 {
-  "name": "setup-e1c-executor",
+  "name": "setup-executor",
   "version": "1.0.0",
   "description": "Setup 1C:Executor action",
   "private": true,
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/otymko/setup-e1c-executor.git"
+    "url": "git+https://github.com/otymko/setup-executor.git"
   },
   "keywords": [
     "actions",
@@ -16,9 +16,9 @@
   "author": "otymko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/otymko/setup-e1c-executor/issues"
+    "url": "https://github.com/otymko/setup-executor/issues"
   },
-  "homepage": "https://github.com/otymko/setup-e1c-executork#readme",
+  "homepage": "https://github.com/otymko/setup-executork#readme",
   "exports": {
     ".": "./dist/index.js"
   },
@@ -38,9 +38,12 @@
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "dependencies": {
-    "@actions/core": "^1.10.1"
+    "@actions/core": "^1.10.1",
+    "@actions/exec": "^1.1.1",
+    "decompress": "^4.2.1"
   },
   "devDependencies": {
+    "@types/decompress": "^4.2.7",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
@@ -56,7 +59,7 @@
     "prettier": "^3.2.4",
     "prettier-eslint": "^16.3.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.4.0-dev.20240123"
+    "typescript": "^5.3.3"
   },
   "jest": {
     "preset": "ts-jest",

@@ -1,0 +1,27 @@
+name: "Check setup 1C:Executor"
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    environment: Base
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [4.0.6.7, stable, preview]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
+    name: check executor
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Установка 1С:Исполнитель
+      uses: ./
+      with:
+        version: ${{ matrix.version }}
+        token: ${{ secrets.EXECUTOR_TOKEN }}
+
+    - name: Проверка скрипта 1С:Исполнитель
+      run: |
+        executor -v
+        executor __tests__/fixtures/test.sbsl
