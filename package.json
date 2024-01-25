@@ -1,12 +1,12 @@
 {
-  "name": "setup-e1c-executor",
+  "name": "setup-executor",
   "version": "1.0.0",
   "description": "Setup 1C:Executor action",
   "private": true,
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/otymko/setup-e1c-executor.git"
+    "url": "git+https://github.com/otymko/setup-executor.git"
   },
   "keywords": [
     "actions",
@@ -16,9 +16,9 @@
   "author": "otymko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/otymko/setup-e1c-executor/issues"
+    "url": "https://github.com/otymko/setup-executor/issues"
   },
-  "homepage": "https://github.com/otymko/setup-e1c-executork#readme",
+  "homepage": "https://github.com/otymko/setup-executork#readme",
   "exports": {
     ".": "./dist/index.js"
   },
@@ -43,6 +43,7 @@
     "decompress": "^4.2.1"
   },
   "devDependencies": {
+    "@types/decompress": "^4.2.7",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.19.0",

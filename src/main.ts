@@ -2,8 +2,7 @@ import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import os from 'os'
 import fs from 'fs'
-
-const decompress = require('decompress')
+import decompress from 'decompress'
 
 /**
  * The main function for the action.
@@ -28,11 +27,7 @@ async function downloadExecutor(): Promise<void> {
   const command = `curl -H "X-Developer-1c-Api:${token}" -J https://developer.1c.ru/applications/Console/api/v1/download/executor/${executorVersion}/universal --output ${archivePath}`
   await exec.exec(command)
 
-  decompress(archivePath, executorPath)
-    .then(() => {})
-    .catch((error: any) => {
-      core.error(error)
-    })
+  await decompress(archivePath, executorPath)
 
   fs.unlink(archivePath, function (err) {
     if (err) return console.log(err)
@@ -40,8 +35,9 @@ async function downloadExecutor(): Promise<void> {
   })
 
   core.addPath(executorPath)
-  if (process.platform != 'win32') {
+  if (process.platform !== 'win32') {
     core.exportVariable('EXECUTOR_BIN', executorPath)
+    // eslint-disable-next-line prefer-template
     core.exportVariable('PATH', '$EXECUTOR_BIN:' + process.env.PATH)
   }
 }
