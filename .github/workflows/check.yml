@@ -14,18 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - shell: bash
-      env:
-        DEVELOPER_1C_TOKEN: ${{ secrets.DEVELOPER_1C_TOKEN }}
-      run: |
-        echo $DEVELOPER_1C_TOKEN
-
     - name: Установка 1С:Исполнитель
       uses: ./
-
       with:
         version: ${{ matrix.version }}
-        token: 95af41968700243d
+        token: ${{ secrets.EXECUTOR_TOKEN }}
 
     - name: Проверка скрипта 1С:Исполнитель
       run: executor __tests__/fixtures/test.sbsl
