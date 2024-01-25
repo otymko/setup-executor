@@ -5,6 +5,7 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    environment: Base
     strategy:
       fail-fast: false
       matrix:
