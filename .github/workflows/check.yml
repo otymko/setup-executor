@@ -18,7 +18,7 @@ jobs:
       env:
         DEVELOPER_1C_TOKEN: ${{ secrets.DEVELOPER_1C_TOKEN }}
       run: |
-        echo "$DEVELOPER_1C_TOKEN"
+        echo $DEVELOPER_1C_TOKEN
 
     - name: Установка 1С:Исполнитель
       uses: ./
