@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         version: [stable]
-        os: [macOS-latest]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
     name: check executor
     steps:
     - uses: actions/checkout@v4
