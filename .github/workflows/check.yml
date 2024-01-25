@@ -14,6 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - shell: bash
+      env:
+        SUPER_SECRET: ${{ secrets.DEVELOPER_1C_TOKEN }}
+      run: |
+        echo "$DEVELOPER_1C_TOKEN"
+
     - name: Установка 1С:Исполнитель
       uses: ./
 
