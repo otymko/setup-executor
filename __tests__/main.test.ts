@@ -40,7 +40,7 @@ describe('action', () => {
         case 'version':
           return 'stable'
         case 'token':
-          return '95af41968700243d' // FIXME !
+          return '' // FIXME !
         default:
           return ''
       }
