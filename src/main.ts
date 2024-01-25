@@ -10,22 +10,43 @@ import decompress from 'decompress'
  */
 export async function run(): Promise<void> {
   try {
-    await downloadExecutor()
+    await downloadAndInstallExecutor()
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
 
-async function downloadExecutor(): Promise<void> {
+async function downloadAndInstallExecutor(): Promise<void> {
   const executorVersion = core.getInput('version')
   const token = core.getInput('token')
 
+  if (!token) {
+    throw new Error('Token for downloads not set')
+  }
+
   const temporaryDirectory = os.tmpdir()
   const archivePath = `${temporaryDirectory}/executor.zip`
-  const executorPath = `${temporaryDirectory}/executor`
 
-  const command = `curl -H "X-Developer-1c-Api:${token}" -J https://developer.1c.ru/applications/Console/api/v1/download/executor/${executorVersion}/universal --output ${archivePath}`
-  await exec.exec(command)
+  await downloadExecutor(executorVersion, token, archivePath)
+  await installExecutor(temporaryDirectory, archivePath)
+}
+
+async function downloadExecutor(
+  executorVersion: string,
+  token: string,
+  archivePath: string
+): Promise<number> {
+  const url = `https://developer.1c.ru/applications/Console/api/v1/download/executor/${executorVersion}/universal`
+  const command = `curl -H "X-Developer-1c-Api:${token}" -J ${url} --output ${archivePath}`
+
+  return await exec.exec(command)
+}
+
+async function installExecutor(
+  temporaryDirectory: string,
+  archivePath: string
+): Promise<void> {
+  const executorPath = `${temporaryDirectory}/executor`
 
   await decompress(archivePath, executorPath)
 

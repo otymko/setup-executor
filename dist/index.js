@@ -39996,14 +39996,14 @@ const core = __importStar(__nccwpck_require__(2186));
 const exec = __importStar(__nccwpck_require__(1514));
 const os_1 = __importDefault(__nccwpck_require__(2037));
 const fs_1 = __importDefault(__nccwpck_require__(7147));
-const decompress = __nccwpck_require__(9350);
+const decompress_1 = __importDefault(__nccwpck_require__(9350));
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
-        await downloadExecutor();
+        await downloadAndInstallExecutor();
     }
     catch (error) {
         if (error instanceof Error)
@@ -40011,27 +40011,34 @@ async function run() {
     }
 }
 exports.run = run;
-async function downloadExecutor() {
+async function downloadAndInstallExecutor() {
     const executorVersion = core.getInput('version');
     const token = core.getInput('token');
+    if (!token) {
+        throw new Error('Token for downloads not set');
+    }
     const temporaryDirectory = os_1.default.tmpdir();
     const archivePath = `${temporaryDirectory}/executor.zip`;
+    await downloadExecutor(executorVersion, token, archivePath);
+    await installExecutor(temporaryDirectory, archivePath);
+}
+async function downloadExecutor(executorVersion, token, archivePath) {
+    const url = `https://developer.1c.ru/applications/Console/api/v1/download/executor/${executorVersion}/universal`;
+    const command = `curl -H "X-Developer-1c-Api:${token}" -J ${url} --output ${archivePath}`;
+    return await exec.exec(command);
+}
+async function installExecutor(temporaryDirectory, archivePath) {
     const executorPath = `${temporaryDirectory}/executor`;
-    const command = `curl -H "X-Developer-1c-Api:${token}" -J https://developer.1c.ru/applications/Console/api/v1/download/executor/${executorVersion}/universal --output ${archivePath}`;
-    await exec.exec(command);
-    decompress(archivePath, executorPath)
-        .then(() => { })
-        .catch((error) => {
-        core.error(error);
-    });
+    await (0, decompress_1.default)(archivePath, executorPath);
     fs_1.default.unlink(archivePath, function (err) {
         if (err)
             return console.log(err);
         console.log('file deleted successfully');
     });
     core.addPath(executorPath);
-    if (process.platform != 'win32') {
+    if (process.platform !== 'win32') {
         core.exportVariable('EXECUTOR_BIN', executorPath);
+        // eslint-disable-next-line prefer-template
         core.exportVariable('PATH', '$EXECUTOR_BIN:' + process.env.PATH);
     }
 }
