@@ -1,0 +1,25 @@
+name: "Check setup 1C:Executor"
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [stable]
+        os: [macOS-latest]
+    name: check oscript
+    steps:
+    - uses: actions/checkout@v4
+    - name: Установка 1С:Исполнитель
+      uses: ./
+      # env:
+      #     DEVELOPER_1C_TOKEN: ${{ secrets.DEVELOPER_1C_TOKEN }}
+      with:
+        version: ${{ matrix.oscript_version }}
+        token: ${{ secrets.DEVELOPER_1C_TOKEN }}
+
+    - name: Проверка скрипта 1С:Исполнитель
+      run: executor __tests__/fixtures/test.sbsl
