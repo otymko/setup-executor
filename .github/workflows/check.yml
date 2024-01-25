@@ -9,10 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [4.0.6.7]
-        os: [ubuntu-latest]
-        # version: [4.0.6.7, stable, preview]
-        # os: [macOS-latest, ubuntu-latest, windows-latest]
+        version: [4.0.6.7, stable, preview]
+        os: [macOS-latest, ubuntu-latest, windows-latest]
     name: check executor
     steps:
     - uses: actions/checkout@v4
