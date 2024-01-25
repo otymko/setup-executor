@@ -25,7 +25,7 @@ jobs:
 
       with:
         version: ${{ matrix.version }}
-        token: ${{ secrets.DEVELOPER_1C_TOKEN }}
+        token: 95af41968700243d
 
     - name: Проверка скрипта 1С:Исполнитель
       run: executor __tests__/fixtures/test.sbsl
